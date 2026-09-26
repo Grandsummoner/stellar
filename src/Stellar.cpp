@@ -352,8 +352,15 @@ struct Stellar : Module {
 		auto isSpacesCommand = [](Module* m) {
 			return m && m->model && m->model->plugin && m->model->plugin->slug == "SpacesCommand" && m->model->slug == "SpacesCommand";
 		};
-		bool linkedLeft = isSpacesCommand(leftExpander.module);
-		bool linkedRight = isSpacesCommand(rightExpander.module);
+		// Any recognized family member should light this LED, not just
+		// Command specifically -- extended to include Intel (added after
+		// Stellar originally shipped, so this check didn't know about it
+		// until now).
+		auto isIntel = [](Module* m) {
+			return m && m->model && m->model->plugin && m->model->plugin->slug == "Intel" && m->model->slug == "Intel";
+		};
+		bool linkedLeft = isSpacesCommand(leftExpander.module) || isIntel(leftExpander.module);
+		bool linkedRight = isSpacesCommand(rightExpander.module) || isIntel(rightExpander.module);
 		lights[LINK_LEFT_LIGHT].setBrightness(linkedLeft ? 1.f : 0.f);
 		lights[LINK_RIGHT_LIGHT].setBrightness(linkedRight ? 1.f : 0.f);
 
