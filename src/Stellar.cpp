@@ -359,8 +359,11 @@ struct Stellar : Module {
 		auto isIntel = [](Module* m) {
 			return m && m->model && m->model->plugin && m->model->plugin->slug == "Intel" && m->model->slug == "Intel";
 		};
-		bool linkedLeft = isSpacesCommand(leftExpander.module) || isIntel(leftExpander.module);
-		bool linkedRight = isSpacesCommand(rightExpander.module) || isIntel(rightExpander.module);
+		auto isBeams = [](Module* m) {
+			return m && m->model && m->model->plugin && m->model->plugin->slug == "Beams" && m->model->slug == "Beams";
+		};
+		bool linkedLeft = isSpacesCommand(leftExpander.module) || isIntel(leftExpander.module) || isBeams(leftExpander.module);
+		bool linkedRight = isSpacesCommand(rightExpander.module) || isIntel(rightExpander.module) || isBeams(rightExpander.module);
 		lights[LINK_LEFT_LIGHT].setBrightness(linkedLeft ? 1.f : 0.f);
 		lights[LINK_RIGHT_LIGHT].setBrightness(linkedRight ? 1.f : 0.f);
 
