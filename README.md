@@ -1,13 +1,8 @@
----
-
-# 3. Stellar (`stellar/README.md`)
-
-```markdown
 # Grandsummoner Stellar
 
 > **14 HP Dual-Voice Multi-Model Synthesizer Companion**
 
-<p align="center">
+<p align="left">
   <img src="res/Stellar.svg" alt="Grandsummoner Stellar Front Panel" width="440" />
 </p>
 
@@ -41,6 +36,7 @@ Every Grandsummoner module adheres to an authentic laboratory aesthetic:
 - **Clean Label Hierarchy**: Bold uppercase signal headers with high-contrast legibility.
 
 ### Standalone vs. Family Operation
+
 - **100% Standalone**: Stellar is fully self-contained. Both voices take standard 1V/Oct pitch, gate, and VCA modulation inputs from any keyboard, sequencer, or MIDI interface.
 - **Universal Adjacency Link**: Side connector LEDs (`LINK L` and `LINK R`) automatically illuminate when Stellar sits adjacent to any Grandsummoner family module (**Spaces Command**, **Intel**, **Beams**, or **Explorer**).
 
@@ -53,3 +49,95 @@ Every Grandsummoner module adheres to an authentic laboratory aesthetic:
 ---
 
 ## User Guide & Controls
+
+```
+┌───────────────────────────────────────────────────┐
+│                   STELLAR  14 HP                  │
+│                                                   │
+│  I/O 1: (VOCT 1)  (GATE 1)  (MOD 1)   [SUB 1]     │
+│  I/O 2: (VOCT 2)  (GATE 2)  (MOD 2)   [SUB 2]     │
+│  AUX:   (EXT IN)  [NOISE]   [OUT L]   [OUT R]     │
+│                                                   │
+│  VOICE 1                                          │
+│  [AN]      [FM]       [SS]      [PL]              │
+│  analog    freq mod   supersaw  pulse             │
+│  [ATTACK]  [DECAY]    [SUSTAIN] [RELEASE] [CUTOFF]│
+│                                                   │
+│  VOICE 2                                          │
+│  [AN]      [FM]       [SS]      [PL]              │
+│  analog    freq mod   supersaw  pulse             │
+│  [ATTACK]  [DECAY]    [SUSTAIN] [RELEASE] [CUTOFF]│
+└───────────────────────────────────────────────────┘
+```
+
+### 1. Audio & CV I/O Section (Top Card)
+- **VOCT 1 / VOCT 2 Inputs**: Standard 1V/Octave calibrated pitch inputs. Features fast legato-safe retriggering: pitch shifts occurring while gate remains high re-articulate the voice seamlessly.
+- **GATE 1 / GATE 2 Inputs**: Active-high gate inputs (+1V threshold) that trigger the internal ADSR envelope and oscillator voice.
+- **MOD 1 / MOD 2 Inputs (0–10V)**: External VCA modulation inputs. Multiplies with the internal envelope (`Output = Envelope × MOD`). When unpatched, normalled to +10V (fully open).
+- **SUB 1 Output**: Dedicated square-wave sub-oscillator output tuned **-1 octave** below Voice 1, shaped by Voice 1's envelope.
+- **SUB 2 Output**: Dedicated square-wave sub-oscillator output tuned **-2 octaves** below Voice 2, shaped by Voice 2's envelope.
+- **EXT IN**: Mono audio input normalled across both stereo master channels for blending external drum or synth modules.
+- **NOISE Output**: Standalone unshaped analog-style white noise source (±5V), always active.
+- **MASTER L / MASTER R**: Stereo master mix outputs combining Voice 1, Voice 2, and EXT IN.
+
+### 2. Voice 1 & Voice 2 Synthesizer Engines
+Each voice offers four combinable oscillator models and an analog-modeled ladder filter:
+
+- **Waveform Selector Buttons**:
+  - **AN (Analog)**: Rich, warm sawtooth with subtle even-harmonic warmth.
+  - **FM (Frequency Modulation)**: Dual-operator FM with dynamic harmonic sidebands, ideal for metallic bells and crystalline tones.
+  - **SS (Supersaw)**: Multi-oscillator detuned saw stack with wide stereo phase dispersion.
+  - **PL (Pulse)**: Symmetrical square wave with bold odd harmonics.
+  - *Stacking*: You can engage multiple waveform buttons simultaneously to create layered hybrid sounds.
+- **ATTACK (1 ms – 4 s)**: Initial envelope rise time from zero to peak.
+- **DECAY (1 ms – 4 s)**: Envelope drop time from peak to sustain level.
+- **SUSTAIN (0% – 100%)**: Continuous level held while gate remains high.
+- **RELEASE (1 ms – 4 s)**: Envelope tail duration after gate drops low.
+- **CUTOFF (0% – 100%)**: Controls the cutoff frequency of the **4-pole (-24 dB/oct) Moog-style resonant ladder filter**. Features internal bass compensation to maintain low-end punch even as resonance climbs.
+
+---
+
+## Technical Specifications
+
+- **Width**: 14 HP (71.12 mm)
+- **Height**: 3U (128.5 mm physical standard / bit-for-bit 380px VCV grid height)
+- **Depth**: 28 mm
+- **Polyphony**: 2 independent monophonic voice engines + 2 sub-oscillators
+- **Pitch Tracking**: 1V/Octave over 8 octaves (-2V to +6V)
+- **Envelope Time**: 1 ms to 4.0 seconds per stage
+- **Filter**: 4-pole low-pass ladder (-24 dB/oct) with active low-end compensation
+- **Signal Levels**: Audio outputs ±5V (10Vpp), Gate inputs +1V to +10V
+
+---
+
+## Building and Installation
+
+### Prebuilt Plugin Package
+Download `Stellar-2.0.0-<platform>.vcvplugin` from the [Releases](https://github.com/Grandsummoner/stellar/releases) section and copy it to your VCV Rack `plugins` directory:
+- **Windows**: `Documents/Rack2/plugins/`
+- **macOS**: `Documents/Rack2/plugins/`
+- **Linux**: `~/.Rack2/plugins/`
+
+### Building from Source
+Ensure you have the [VCV Rack SDK v2](https://vcvrack.com/downloads/) installed.
+
+```bash
+# Clone the repository
+git clone https://github.com/Grandsummoner/stellar.git
+cd stellar
+
+# Set your Rack SDK directory
+export RACK_DIR=/path/to/Rack-SDK
+
+# Build the distributable package
+make -j2 dist
+```
+
+The compiled package will be located in `dist/Stellar-2.0.0-<platform>.vcvplugin`.
+
+---
+
+## License
+
+This software is released under the **GNU General Public License v3.0 or later** (GPL-3.0-or-later).  
+Copyright © 2026 Grandsummoner. All rights reserved.
