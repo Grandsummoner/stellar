@@ -1,9 +1,11 @@
 {
   "slug": "Stellar",
   "name": "Stellar",
+  "brand": "Grandsummoner",
   "version": "2.0.0",
   "license": "GPL-3.0-or-later",
   "author": "Grandsummoner",
+  "authorEmail": "percivale09@gmail.com",
   "authorUrl": "https://github.com/Grandsummoner",
   "pluginUrl": "https://github.com/Grandsummoner/stellar",
   "sourceUrl": "https://github.com/Grandsummoner/stellar",
@@ -11,8 +13,13 @@
     {
       "slug": "Stellar",
       "name": "Stellar",
-      "description": "Dual-voice companion synth -- 4 switchable oscillators per voice into a shared Moog-style ladder filter, ADSR, external MOD (VCA) input, per-voice sub-oscillator, standalone noise, and external audio mixing. Fully standalone; lights up when linked adjacent to a Spaces Command module on either side.",
-      "tags": ["Oscillator", "Polyphonic"]
+      "description": "Dual-voice companion synth -- 4 switchable oscillators per voice into a shared Moog-style ladder filter, ADSR, external MOD (VCA) input, per-voice sub-oscillator, standalone noise, and external audio mixing. Fully standalone; lights up when linked adjacent to a Spaces Command, Intel, Beams, or Explorer module on either side.",
+      "tags": [
+        "Oscillator",
+        "Polyphonic",
+        "Synth Voice",
+        "Dual"
+      ]
     }
   ]
 }

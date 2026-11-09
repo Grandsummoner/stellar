@@ -347,23 +347,19 @@ struct Stellar : Module {
 		// binaries), so there's no modelSpacesCommand symbol to
 		// reference directly the way there would be within one plugin.
 		// No message exchange implemented -- Command doesn't produce an
-		// expander message today, so this is intentionally just a
-		// presence light.
-		auto isSpacesCommand = [](Module* m) {
-			return m && m->model && m->model->plugin && m->model->plugin->slug == "SpacesCommand" && m->model->slug == "SpacesCommand";
+		// LINK lights: universal Grandsummoner family adjacency detection
+		auto isFamilyModule = [](Module* m) {
+			if (!m || !m->model) return false;
+			std::string pSlug = (m->model->plugin) ? m->model->plugin->slug : "";
+			std::string mSlug = m->model->slug;
+			auto match = [&](const std::string& name) {
+				return mSlug == name || pSlug == name || 
+				       mSlug == "Grandsummoner-" + name || pSlug == "Grandsummoner-" + name;
+			};
+			return match("SpacesCommand") || match("Intel") || match("Beams") || match("Stellar") || match("Explorer");
 		};
-		// Any recognized family member should light this LED, not just
-		// Command specifically -- extended to include Intel (added after
-		// Stellar originally shipped, so this check didn't know about it
-		// until now).
-		auto isIntel = [](Module* m) {
-			return m && m->model && m->model->plugin && m->model->plugin->slug == "Intel" && m->model->slug == "Intel";
-		};
-		auto isBeams = [](Module* m) {
-			return m && m->model && m->model->plugin && m->model->plugin->slug == "Beams" && m->model->slug == "Beams";
-		};
-		bool linkedLeft = isSpacesCommand(leftExpander.module) || isIntel(leftExpander.module) || isBeams(leftExpander.module);
-		bool linkedRight = isSpacesCommand(rightExpander.module) || isIntel(rightExpander.module) || isBeams(rightExpander.module);
+		bool linkedLeft = isFamilyModule(leftExpander.module);
+		bool linkedRight = isFamilyModule(rightExpander.module);
 		lights[LINK_LEFT_LIGHT].setBrightness(linkedLeft ? 1.f : 0.f);
 		lights[LINK_RIGHT_LIGHT].setBrightness(linkedRight ? 1.f : 0.f);
 
